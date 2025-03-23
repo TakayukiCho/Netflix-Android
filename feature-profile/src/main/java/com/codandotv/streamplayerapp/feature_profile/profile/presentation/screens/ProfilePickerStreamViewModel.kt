@@ -19,6 +19,9 @@ import org.koin.android.annotation.KoinViewModel
 class ProfilePickerStreamViewModel(
     private val useCase: ProfilePickerStreamUseCase,
 ) : ViewModel(), DefaultLifecycleObserver {
+    init {
+        loadProfile()
+    }
 
     private val _uiState = MutableStateFlow(ProfilePickerStreamsUIState())
     val uiState = _uiState.stateIn(
@@ -27,9 +30,7 @@ class ProfilePickerStreamViewModel(
         initialValue = _uiState.value
     )
 
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
-
+    private fun loadProfile() {
         viewModelScope.launch {
             useCase.getProfile()
                 .catchFailure {

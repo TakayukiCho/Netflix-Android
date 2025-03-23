@@ -52,21 +52,12 @@ import org.koin.androidx.compose.koinViewModel
 fun DetailStreamScreen(
     viewModel: DetailStreamViewModel = koinViewModel(),
     navController: NavController,
-    disposable: () -> Unit = {},
     onNavigateSearchScreen: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val lifecycleOwner = LocalLifecycleOwner.current
-
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.loadDetail()
-    }
-
-    DisposableEffect(lifecycleOwner) {
-        onDispose {
-            disposable.invoke()
-        }
     }
 
     when (uiState) {
