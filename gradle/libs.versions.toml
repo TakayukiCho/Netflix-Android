@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.9.25"
 android_gradle_plugin = "8.2.2"
-koin = "3.4.0"
+koin = "4.0.1"
 koin-annotations-bom = "1.3.0"
 ksp = "1.9.25-1.0.20"
 dokka = "1.9.10"

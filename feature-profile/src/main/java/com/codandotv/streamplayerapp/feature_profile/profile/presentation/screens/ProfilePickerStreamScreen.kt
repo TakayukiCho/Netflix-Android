@@ -7,19 +7,15 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.codandotv.streamplayerapp.core_shared_ui.theme.ThemePreview
 import com.codandotv.streamplayerapp.core_shared_ui.theme.ThemePreviews
@@ -37,12 +33,8 @@ import org.koin.androidx.compose.koinViewModel
 fun ProfilePickerStreamScreen(
     viewModel: ProfilePickerStreamViewModel = koinViewModel(),
     onNavigateListStreams: (String) -> Unit = {},
-    disposable: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
-    Lifecycle(lifecycleOwner, viewModel, disposable)
-
     if (uiState.isLoading) {
         LoadScreen()
     } else {
@@ -62,7 +54,6 @@ fun ProfilePickerStreamScreen(
 }
 
 @Suppress("LongMethod", "LongParameterList")
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun SetupProfilePickerScreen(
@@ -152,22 +143,6 @@ private fun SetupProfilePickerScreen(
             }
         }
     )
-}
-
-@Composable
-private fun Lifecycle(
-    lifecycleOwner: LifecycleOwner, viewModel: ProfilePickerStreamViewModel, disposable: () -> Unit
-) {
-    DisposableEffect(lifecycleOwner) {
-        val lifecycle = lifecycleOwner.lifecycle
-
-        lifecycle.addObserver(viewModel)
-
-        onDispose {
-            lifecycle.removeObserver(viewModel)
-            disposable.invoke()
-        }
-    }
 }
 
 @ThemePreviews
