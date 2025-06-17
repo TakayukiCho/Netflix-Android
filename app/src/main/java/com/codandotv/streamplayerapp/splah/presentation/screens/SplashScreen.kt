@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,11 +16,16 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.codandotv.streamplayerapp.core.shared.ui.R as SharedUiR
+import io.karte.android.tracking.Tracker
 
 @Composable
 fun SplashScreen(
     onAnimationFinished: () -> Unit
 ) {
+    LaunchedEffect(Unit) {
+        Tracker.view("splash", "Splash Screen")
+    }
+    
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

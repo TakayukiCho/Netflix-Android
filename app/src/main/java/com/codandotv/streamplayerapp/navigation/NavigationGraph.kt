@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -19,6 +20,7 @@ import com.codandotv.streamplayerapp.feature_list_streams.list.presentation.navi
 import com.codandotv.streamplayerapp.feature_list_streams.search.presentation.navigation.searchStreamsNavGraph
 import com.codandotv.streamplayerapp.feature_profile.profile.presentation.navigation.profilePickerStreamNavGraph
 import com.codandotv.streamplayerapp.splah.presentation.navigation.splashNavGraph
+import io.karte.android.tracking.Tracker
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
@@ -45,6 +47,15 @@ fun NavGraphBuilder.temporaryFun(route: String, navController: NavController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun example(navController: NavController, route: String) {
+    LaunchedEffect(Unit) {
+        when (route) {
+            BottomNavRoutes.GAMES -> Tracker.view("games", "Games Screen")
+            BottomNavRoutes.NEWS -> Tracker.view("news", "News Screen")
+            BottomNavRoutes.SCENES -> Tracker.view("scenes", "Scenes Screen")
+            BottomNavRoutes.DOWNLOADS -> Tracker.view("downloads", "Downloads Screen")
+        }
+    }
+    
     Scaffold(
         bottomBar = {
             StreamPlayerBottomNavigation(navController = navController)

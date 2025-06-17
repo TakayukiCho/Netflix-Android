@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
+import com.codandotv.streamplayerapp.core_navigation.helper.NavigationAnalyticsTracker
 import com.codandotv.streamplayerapp.core_shared_ui.theme.StreamPlayerTheme
 import com.codandotv.streamplayerapp.navigation.NavigationGraph
 
@@ -21,6 +22,10 @@ class MainActivity : ComponentActivity() {
 fun StreamPlayerApp() {
     StreamPlayerTheme {
         val navController = rememberNavController()
+        
+        // Track navigation changes for analytics
+        NavigationAnalyticsTracker(navController = navController)
+        
         NavigationGraph(navController = navController)
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,6 +31,7 @@ import com.codandotv.streamplayerapp.feature_list_streams.search.presentation.wi
 import com.codandotv.streamplayerapp.feature_list_streams.search.presentation.widgets.SearchableTopBar
 import com.codandotv.streamplayerapp.feature_list_streams.search.presentation.widgets.StreamsEmpty
 import com.codandotv.streamplayerapp.feature_list_streams.search.presentation.widgets.StreamsError
+import io.karte.android.tracking.Tracker
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -39,6 +41,10 @@ fun SearchScreen(
     navController: NavController,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    
+    LaunchedEffect(Unit) {
+        Tracker.view("search", "Search Screen")
+    }
 
     when (uiState) {
         is SearchUIState.Success -> {

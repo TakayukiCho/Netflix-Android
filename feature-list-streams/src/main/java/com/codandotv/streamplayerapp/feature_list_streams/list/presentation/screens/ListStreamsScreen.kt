@@ -18,6 +18,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +33,7 @@ import com.codandotv.streamplayerapp.core_shared_ui.theme.ThemePreviews
 import com.codandotv.streamplayerapp.core_shared_ui.widget.StreamPlayerTopBar
 import com.codandotv.streamplayerapp.feature_list_streams.list.presentation.widgets.HighlightBanner
 import com.codandotv.streamplayerapp.feature_list_streams.list.presentation.widgets.StreamsCarousel
+import io.karte.android.tracking.Tracker
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("LongParameterList")
@@ -50,6 +52,10 @@ fun ListStreamsScreen(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     val baseScrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        Tracker.view("home", "Home Screen")
+    }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

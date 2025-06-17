@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +28,7 @@ import com.codandotv.streamplayerapp.feature_profile.profile.presentation.widget
 import com.codandotv.streamplayerapp.feature_profile.profile.presentation.widget.ProfilePickerSelectedProfileContainer
 import com.codandotv.streamplayerapp.feature_profile.profile.presentation.widget.ProfilePickerStreamToolbar
 import com.codandotv.streamplayerapp.feature_profile.profile.presentation.widget.dpToPx
+import io.karte.android.tracking.Tracker
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -35,6 +37,10 @@ fun ProfilePickerStreamScreen(
     onNavigateListStreams: (String) -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    
+    LaunchedEffect(Unit) {
+        Tracker.view("profile_picker", "Profile Picker Screen")
+    }
     if (uiState.isLoading) {
         LoadScreen()
     } else {

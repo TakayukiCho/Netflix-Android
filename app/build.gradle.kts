@@ -4,6 +4,12 @@ plugins {
     id("com.streamplayer.application")
 }
 
+android {
+    defaultConfig {
+        buildConfigField("String", "KARTE_APP_KEY", "\"${property("KARTE_APP_KEY")}\"")
+    }
+}
+
 dependencies {
     implementation(projects.featureFavorites)
     implementation(projects.featureListStreams)

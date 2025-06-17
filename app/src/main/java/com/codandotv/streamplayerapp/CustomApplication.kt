@@ -10,7 +10,11 @@ class CustomApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-       startKoin{
+        
+        // Initialize KARTE SDK
+        KarteApp.setup(this, BuildConfig.KARTE_APP_KEY)
+        
+        startKoin{
             androidContext(this@CustomApplication.applicationContext)
             modules(AppModule.list)
        }

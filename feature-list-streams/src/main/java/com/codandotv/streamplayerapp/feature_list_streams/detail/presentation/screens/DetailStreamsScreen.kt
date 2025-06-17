@@ -22,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +47,7 @@ import com.codandotv.streamplayerapp.feature_list_streams.detail.presentation.wi
 import com.codandotv.streamplayerapp.feature_list_streams.detail.presentation.widget.DetailStreamImagePreview
 import com.codandotv.streamplayerapp.feature_list_streams.detail.presentation.widget.DetailStreamRowHeader
 import com.codandotv.streamplayerapp.feature_list_streams.detail.presentation.widget.DetailStreamToolbar
+import io.karte.android.tracking.Tracker
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -55,6 +57,10 @@ fun DetailStreamScreen(
     onNavigateSearchScreen: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        Tracker.view("stream_detail", "Stream Detail Screen")
+    }
 
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.loadDetail()
